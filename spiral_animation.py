@@ -35,8 +35,8 @@ x, y, theta = generate_spiral(a, b, num_points)
 fig, ax = plt.subplots()
 ax.set_aspect('equal')
 spiral_line, = ax.plot(x, y, 'b')
-tangent_line, = ax.plot([], [], 'g', label='Normal')  # Swapped colors and labels
-normal_line, = ax.plot([], [], 'r', label='Tangent')  # Swapped colors and labels
+tangent_line, = ax.plot([], [], 'r', label='Tangent')  # Corrected color and label
+normal_line, = ax.plot([], [], 'g', label='Normal')  # Corrected color and label
 point, = ax.plot([], [], 'ko')
 
 # Initialize animation
