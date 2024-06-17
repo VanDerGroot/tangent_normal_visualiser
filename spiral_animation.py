@@ -49,20 +49,24 @@ def init():
 # Animation function
 def animate(i):
     if i >= num_points:
-        return tangent_line, normal_line, point
+        return normal_line, tangent_line, point
 
     tangent, normal = calculate_tangent_normal(x, y, theta, i)
     point.set_data([x[i]], [y[i]])
 
-    normal_start = [x[i], y[i]]  # Displaying tangent in red now
-    normal_end = [x[i] + tangent[0], y[i] + tangent[1]]
-    normal_line.set_data([normal_start[0], normal_end[0]], [normal_start[1], normal_end[1]])
+    # Multiply the tangent and normal vectors by a large number
+    tangent *= 1e6
+    normal *= 1e6
 
-    tangent_start = [x[i], y[i]]  # Displaying normal in green now
-    tangent_end = [x[i] + normal[0], y[i] + normal[1]]
+    tangent_start = [x[i] - tangent[0], y[i] - tangent[1]]  # Subtract the tangent vector from the point
+    tangent_end = [x[i] + tangent[0], y[i] + tangent[1]]  # Add the tangent vector to the point
     tangent_line.set_data([tangent_start[0], tangent_end[0]], [tangent_start[1], tangent_end[1]])
 
-    return tangent_line, normal_line, point
+    normal_start = [x[i] - normal[0], y[i] - normal[1]]  # Subtract the normal vector from the point
+    normal_end = [x[i] + normal[0], y[i] + normal[1]]  # Add the normal vector to the point
+    normal_line.set_data([normal_start[0], normal_end[0]], [normal_start[1], normal_end[1]])
+
+    return normal_line, tangent_line, point
 
 # Create animation
 ani = animation.FuncAnimation(fig, animate, init_func=init, frames=num_points, interval=50, blit=True)
